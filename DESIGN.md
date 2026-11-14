@@ -49,3 +49,8 @@ Textos principais ampliados: 19 px no hero desktop, benefícios de 15 px no desk
 ## Nova logo e borda esfumaçada
 
 Aplicada a segunda imagem oficial fornecida em `public/media/wks-logo-official.jpeg`. O filtro de exibição passou a remover apenas tons próximos do branco, preservando os tons escuros e cinzas. O slogan é apresentado como texto de alto contraste fora do recorte da imagem, com o mesmo conteúdo, evitando perda de nitidez no tamanho do cabeçalho. A box usa duas camadas brancas desfocadas para criar bordas difusas; a imagem e o slogan não recebem blur. Conferidos desktop e celular sem rolagem horizontal.
+
+
+## Ajuste final da logo
+
+Retirados o halo de borda esfumaçada e o slogan adicional em HTML. Mantida somente a nova imagem oficial dentro da box de vidro anterior, conforme revisão solicitada.

@@ -5,7 +5,7 @@ import { sales, media } from './config';
 const themes = [{ name: 'Azul', color: '#3384ff' }, { name: 'Dourado', color: '#c59b51' }, { name: 'Verde', color: '#2aad85' }];
 const views = [{ id: 'agenda', label: 'Agenda da equipe' }, { id: 'clientes', label: 'Gestão de clientes' }, { id: 'financeiro', label: 'Visão financeira' }];
 function Logo() {
-  return <a className="brand" href="#inicio" aria-label="WKS Systems — início"><span className="logo-crop"><img src="/media/wks-logo-official.jpeg" alt="WKS Systems" width="640" height="640" /></span><span className="brand-tagline" aria-hidden="true">SOLUÇÕES QUE IMPULSIONAM</span></a>;
+  return <a className="brand" href="#inicio" aria-label="WKS Systems — início"><span className="logo-crop"><img src="/media/wks-logo-official.jpeg" alt="WKS Systems — Soluções que impulsionam" width="640" height="640" /></span></a>;
 }
 function CTA({ children = 'Agendar demonstração', dark = false, className = '' }) {
   return <a className={`button ${dark ? 'button-dark' : 'button-blue'} ${className}`} href="#demonstracao">{children}<Icon size={18} /></a>;
