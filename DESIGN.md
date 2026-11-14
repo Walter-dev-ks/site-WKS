@@ -54,3 +54,8 @@ Aplicada a segunda imagem oficial fornecida em `public/media/wks-logo-official.j
 ## Ajuste final da logo
 
 Retirados o halo de borda esfumaçada e o slogan adicional em HTML. Mantida somente a nova imagem oficial dentro da box de vidro anterior, conforme revisão solicitada.
+
+
+## Logo branca e azul aprovada
+
+Aplicado o PNG aprovado pelo usuário em `public/media/wks-logo-light.png`, com canal alfa. Retirados a box de vidro, seus pseudo-elementos e os filtros de recoloração. Cabeçalho e rodapé usam a mesma imagem, com enquadramento responsivo.

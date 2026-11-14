@@ -114,3 +114,14 @@ body{font-size:16px}
 
 .logo-filters{position:absolute;pointer-events:none;overflow:hidden}.logo-crop{mix-blend-mode:normal}.logo-crop img{filter:url(#wks-logo-cutout);mix-blend-mode:normal}
 
+
+/* Approved white-and-blue PNG: no glass box or recoloring filters. */
+.brand,.footer-brand .brand{display:inline-flex;position:relative;isolation:auto;flex-direction:row;gap:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;overflow:visible}
+.brand:before,.brand:after{display:none;content:none}
+.brand:hover{box-shadow:none;transform:translateY(-1px)}
+.logo-crop,.footer-brand .logo-crop{display:block;position:relative;width:196px;height:88px;background:transparent;border-radius:0;overflow:visible;mix-blend-mode:normal}
+.logo-crop img,.footer-brand .logo-crop img{position:absolute;left:0;top:-24px;display:block;width:196px;height:auto;max-width:none;transform:none;filter:none;mix-blend-mode:normal;pointer-events:none}
+@media(max-width:1050px){.logo-crop{width:166px;height:75px}.logo-crop img{width:166px;top:-20px}}
+@media(max-width:800px){.logo-crop{width:144px;height:65px}.logo-crop img{width:144px;top:-17px}}
+@media(max-width:600px){.logo-crop{width:122px;height:55px}.logo-crop img{width:122px;top:-14px}.nav-cta{font-size:9px;padding:12px 10px}.footer-brand .logo-crop{width:186px;height:84px}.footer-brand .logo-crop img{width:186px;top:-22px}}
+@media(max-width:360px){.logo-crop{width:108px;height:49px}.logo-crop img{width:108px;top:-13px}.nav-cta{font-size:8px}}
