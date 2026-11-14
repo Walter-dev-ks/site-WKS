@@ -59,3 +59,8 @@ Retirados o halo de borda esfumaçada e o slogan adicional em HTML. Mantida some
 ## Logo branca e azul aprovada
 
 Aplicado o PNG aprovado pelo usuário em `public/media/wks-logo-light.png`, com canal alfa. Retirados a box de vidro, seus pseudo-elementos e os filtros de recoloração. Cabeçalho e rodapé usam a mesma imagem, com enquadramento responsivo.
+
+
+## Abertura em sequência
+
+Implementada animação iniciada pelo carregamento, sem depender de rolagem: logo entra em 0,5 s com passagem azul mascarada sobre o PNG; título sobe linha por linha, seguido de descrição, CTA e prévia do produto. Um único pulso destaca o CTA. A composição termina de entrar em cerca de 1,25 s e não bloqueia links ou botões. A imagem da logo tem preload e prioridade alta. Em prefers-reduced-motion, a sequência e o brilho são desativados e o conteúdo aparece imediatamente.
