@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icon, ProductPreview, faq } from './ui';
 import { sales, media } from './config';
 
@@ -45,6 +45,27 @@ export default function App() {
   const [shop, setShop] = useState('Sua Barbearia');
   const [error, setError] = useState('');
   const color = themes[theme].color;
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    const elements = document.querySelectorAll('.feature-copy, .feature-stage, .brand-section-heading, .brand-playground, .section-heading, .steps article, .faq-layout > div, .demo-panel, .proof-grid > div');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+    elements.forEach((element, index) => {
+      element.style.setProperty('--reveal-delay', (index % 2) * 75 + 'ms');
+      element.classList.add('reveal-pending');
+      observer.observe(element);
+    });
+    return () => {
+      observer.disconnect();
+      elements.forEach(element => element.classList.remove('reveal-pending'));
+    };
+  }, []);
   function requestDemo(event) {
     event.preventDefault();
     if (!/^\d{12,13}$/.test(sales.whatsapp)) {
@@ -56,6 +77,7 @@ export default function App() {
     window.location.assign(`https://wa.me/${sales.whatsapp}?text=${encodeURIComponent(message)}`);
   }
   return <>
+    <svg className="logo-filters" width="0" height="0" aria-hidden="true" focusable="false"><defs><filter id="wks-logo-cutout" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 0 3" /><feComponentTransfer><feFuncA type="linear" slope="1.1" intercept="-0.08" /></feComponentTransfer></filter></defs></svg>
     <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
     <header className="header"><div className="container header-inner"><Logo /><nav id="main-nav" className={menu ? 'nav open' : 'nav'} aria-label="Navegação principal">{[['#sistema', 'O sistema'], ['#recursos', 'Recursos'], ['#sua-marca', 'Sua marca'], ['#duvidas', 'Dúvidas']].map(([href, label]) => <a href={href} key={href} onClick={() => setMenu(false)}>{label}</a>)}</nav><CTA className="nav-cta">Agendar demonstração</CTA><button className="menu-button" aria-label={menu ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menu} aria-controls="main-nav" onClick={() => setMenu(!menu)}><Icon name={menu ? 'close' : 'menu'} /></button></div></header>
     <main id="conteudo">

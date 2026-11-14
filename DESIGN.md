@@ -39,3 +39,8 @@ A paleta foi recriada a partir da referência visual; não é uma extração cer
 ## Verificação
 
 Build de produção concluído. Página inspecionada em desktop e viewport de 390 × 844. Verificados: ausência de rolagem horizontal no celular, carregamento da logo e foto principal, âncoras, alternância de prévias, nome e cor no simulador, menu mobile, FAQ e resposta do formulário enquanto o WhatsApp está sem configuração. Nenhuma mensagem externa foi enviada.
+
+
+## Revisão de legibilidade e movimento
+
+Textos principais ampliados: 19 px no hero desktop, benefícios de 15 px no desktop e 16 px no celular, FAQ e formulário com escala maior. A logo usa o arquivo oficial com filtro SVG de apresentação para tornar os brancos transparentes, sobre uma caixa de vidro branco com blur e brilho difuso. O PNG original permanece intacto. Foram adicionados reveal por IntersectionObserver, flutuação suave, entradas do hero e respostas de hover, com fallback para prefers-reduced-motion. Verificação em desktop e celular: sem rolagem horizontal, textos mobile e inputs em 16 px, entrada de seção observada.
