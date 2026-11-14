@@ -5,7 +5,7 @@ import { sales, media } from './config';
 const themes = [{ name: 'Azul', color: '#3384ff' }, { name: 'Dourado', color: '#c59b51' }, { name: 'Verde', color: '#2aad85' }];
 const views = [{ id: 'agenda', label: 'Agenda da equipe' }, { id: 'clientes', label: 'Gestão de clientes' }, { id: 'financeiro', label: 'Visão financeira' }];
 function Logo() {
-  return <a className="brand" href="#inicio" aria-label="WKS Systems — início"><span className="logo-crop"><img src="/media/wks-logo.png" alt="WKS Systems — Soluções que impulsionam" width="637" height="642" /></span></a>;
+  return <a className="brand" href="#inicio" aria-label="WKS Systems — início"><span className="logo-crop"><img src="/media/wks-logo-official.jpeg" alt="WKS Systems" width="640" height="640" /></span><span className="brand-tagline" aria-hidden="true">SOLUÇÕES QUE IMPULSIONAM</span></a>;
 }
 function CTA({ children = 'Agendar demonstração', dark = false, className = '' }) {
   return <a className={`button ${dark ? 'button-dark' : 'button-blue'} ${className}`} href="#demonstracao">{children}<Icon size={18} /></a>;
@@ -77,7 +77,7 @@ export default function App() {
     window.location.assign(`https://wa.me/${sales.whatsapp}?text=${encodeURIComponent(message)}`);
   }
   return <>
-    <svg className="logo-filters" width="0" height="0" aria-hidden="true" focusable="false"><defs><filter id="wks-logo-cutout" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 0 3" /><feComponentTransfer><feFuncA type="linear" slope="1.1" intercept="-0.08" /></feComponentTransfer></filter></defs></svg>
+    <svg className="logo-filters" width="0" height="0" aria-hidden="true" focusable="false"><defs><filter id="wks-logo-cutout" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -10 -10 -10 0 29" /><feComponentTransfer><feFuncA type="linear" slope="1.1" intercept="-0.08" /></feComponentTransfer></filter></defs></svg>
     <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
     <header className="header"><div className="container header-inner"><Logo /><nav id="main-nav" className={menu ? 'nav open' : 'nav'} aria-label="Navegação principal">{[['#sistema', 'O sistema'], ['#recursos', 'Recursos'], ['#sua-marca', 'Sua marca'], ['#duvidas', 'Dúvidas']].map(([href, label]) => <a href={href} key={href} onClick={() => setMenu(false)}>{label}</a>)}</nav><CTA className="nav-cta">Agendar demonstração</CTA><button className="menu-button" aria-label={menu ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menu} aria-controls="main-nav" onClick={() => setMenu(!menu)}><Icon name={menu ? 'close' : 'menu'} /></button></div></header>
     <main id="conteudo">

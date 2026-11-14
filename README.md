@@ -32,7 +32,7 @@ Funcionalidades verificadas nos arquivos públicos de `Walter-dev-ks/Bahianus-Ba
 
 White-label: apenas nome, cores e logo; mesmas funções e layout, conforme orientação comercial. Nenhum depoimento, resultado percentual, preço ou prazo de implantação foi inventado.
 
-A logo oficial enviada está em `public/media/wks-logo.png` e é usada no cabeçalho e no rodapé. O arquivo original foi preservado, com enquadramento em CSS para reduzir as margens brancas. A fonte de títulos Barlow Condensed complementa a Inter do corpo. Consulte `DESIGN.md` para a análise da referência e as decisões de composição.
+A nova logo oficial está em `public/media/wks-logo-official.jpeg` e é usada no cabeçalho e no rodapé. O arquivo original foi preservado. Um filtro de exibição retira os tons próximos ao branco; o slogan é apresentado em texto nítido e a base recebe um halo branco de bordas difusas. A fonte de títulos Barlow Condensed complementa a Inter do corpo. Consulte `DESIGN.md` para a análise da referência e as decisões de composição.
 
 Referência de composição: https://getsquire.com/ — sem copiar textos, screenshots ou identidade da SQUIRE.
 

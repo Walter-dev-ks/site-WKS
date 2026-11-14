@@ -44,3 +44,8 @@ Build de produção concluído. Página inspecionada em desktop e viewport de 39
 ## Revisão de legibilidade e movimento
 
 Textos principais ampliados: 19 px no hero desktop, benefícios de 15 px no desktop e 16 px no celular, FAQ e formulário com escala maior. A logo usa o arquivo oficial com filtro SVG de apresentação para tornar os brancos transparentes, sobre uma caixa de vidro branco com blur e brilho difuso. O PNG original permanece intacto. Foram adicionados reveal por IntersectionObserver, flutuação suave, entradas do hero e respostas de hover, com fallback para prefers-reduced-motion. Verificação em desktop e celular: sem rolagem horizontal, textos mobile e inputs em 16 px, entrada de seção observada.
+
+
+## Nova logo e borda esfumaçada
+
+Aplicada a segunda imagem oficial fornecida em `public/media/wks-logo-official.jpeg`. O filtro de exibição passou a remover apenas tons próximos do branco, preservando os tons escuros e cinzas. O slogan é apresentado como texto de alto contraste fora do recorte da imagem, com o mesmo conteúdo, evitando perda de nitidez no tamanho do cabeçalho. A box usa duas camadas brancas desfocadas para criar bordas difusas; a imagem e o slogan não recebem blur. Conferidos desktop e celular sem rolagem horizontal.

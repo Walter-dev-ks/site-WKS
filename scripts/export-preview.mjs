@@ -3,7 +3,7 @@ const destination = process.argv[2] || 'WKS-Preview.html';
 let html = await readFile('dist/index.html', 'utf8');
 let css = await readFile('dist/assets/main.css', 'utf8');
 let js = await readFile('dist/assets/main.js', 'utf8');
-for (const [name, type] of [['inter-latin.woff2', 'font/woff2'], ['display.woff2', 'font/woff2'], ['barber.jpg', 'image/jpeg'], ['wks-logo.png', 'image/png']]) {
+for (const [name, type] of [['inter-latin.woff2', 'font/woff2'], ['display.woff2', 'font/woff2'], ['barber.jpg', 'image/jpeg'], ['wks-logo.png', 'image/png'], ['wks-logo-official.jpeg', 'image/jpeg']]) {
   const data = `data:${type};base64,${(await readFile(`public/media/${name}`)).toString('base64')}`;
   css = css.replaceAll(`/media/${name}`, data);
   js = js.replaceAll(`/media/${name}`, data);
