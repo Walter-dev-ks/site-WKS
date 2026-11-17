@@ -1,6 +1,6 @@
 // Commercial settings: fill before opening the page to real prospects.
 export const sales = {
-  whatsapp: '', // Country code + area code + number, digits only. Example format: 5547999999999.
+  whatsapp: '5547992315473', // Country code + area code + number, digits only. Example format: 5547999999999.
   brandName: 'WKS Systems',
 };
 // Replace null with local screenshot/GIF paths inside public/media.
