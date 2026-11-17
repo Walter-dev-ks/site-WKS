@@ -30,7 +30,7 @@ export default function BarberBackdrop({ paused, reduced }) {
         const mobile = context.conditions.mobile;
         const scissors = root.current.querySelector('.barber-scissors');
         const clipper = root.current.querySelector('.barber-clipper');
-        // One scroll-controlled orbit; opposite phases keep the objects circling each other.
+        // Scroll-controlled intertwined zigzag paths, matching the flowing reference.
         const progress = { value: 0 };
         const setters = [scissors, clipper].map(element => ({
           x: gsap.quickSetter(element, 'x', 'px'),
@@ -41,20 +41,21 @@ export default function BarberBackdrop({ paused, reduced }) {
           const t = progress.value;
           const width = window.innerWidth;
           const height = window.innerHeight;
-          const radius = mobile ? Math.min(38, width * .1) : Math.min(105, width * .1);
+          // Two descending S-curves weave from side to side, with a slower shared zigzag.
+          // Vertical travel is monotonic: no circular orbit and no full object rotations.
           const size = Math.max(scissors.offsetWidth, scissors.offsetHeight, clipper.offsetWidth, clipper.offsetHeight);
-          const margin = size * .72 + radius + 8;
-          const segment = Math.min(2, Math.floor(t * 3));
-          const local = t * 3 - segment;
-          const stops = [.2, .8, .2, .8];
-          const desired = width * (stops[segment] + (stops[segment + 1] - stops[segment]) * local);
-          const centerX = Math.max(Math.min(margin, width / 2), Math.min(width - Math.min(margin, width / 2), desired));
-          const centerY = height * (.34 + .2 * t);
+          const margin = Math.min(size * .72 + 12, width / 2);
+          const available = Math.max(0, width / 2 - margin);
+          const shared = Math.sin(t * Math.PI * 2) * available * .28;
+          const phase = t * Math.PI * 8 + Math.PI / 2;
+          const weave = Math.sin(phase) * available * .7;
+          const centerY = height * (.22 + .5 * t);
           [scissors, clipper].forEach((element, index) => {
-            const angle = t * Math.PI * 6 + index * Math.PI;
-            setters[index].x(centerX + Math.cos(angle) * radius - element.offsetWidth / 2);
-            setters[index].y(centerY + Math.sin(angle) * radius * .7 - element.offsetHeight / 2);
-            setters[index].rotation(t * 360 * (index ? -1 : 1) + (index ? 15 : -15));
+            const side = index ? -1 : 1;
+            const verticalOffset = side * Math.min(22, height * .025);
+            setters[index].x(width / 2 + shared + side * weave - element.offsetWidth / 2);
+            setters[index].y(centerY + verticalOffset - element.offsetHeight / 2);
+            setters[index].rotation(side * (8 + Math.cos(phase) * 12));
           });
         };
         gsap.to(progress, { value: 1, duration: 1, ease: 'none', onUpdate: render,
