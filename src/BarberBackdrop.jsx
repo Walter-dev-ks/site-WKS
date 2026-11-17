@@ -30,29 +30,38 @@ export default function BarberBackdrop({ paused, reduced }) {
         const mobile = context.conditions.mobile;
         const scissors = root.current.querySelector('.barber-scissors');
         const clipper = root.current.querySelector('.barber-clipper');
-        // Coordinates are recalculated on refresh; the full icon stays within the viewport.
-        const x = fraction => () => (window.innerWidth - scissors.getBoundingClientRect().width) * fraction;
-        const y = fraction => () => window.innerHeight * fraction;
-        gsap.set(scissors, { x: x(.05), y: y(.16), rotation: -20 });
-        gsap.set(clipper, { x: x(.85), y: y(.55), rotation: 18 });
-        gsap.set('#scissors-top-blade, #scissors-bottom-blade', { svgOrigin: '100 100' });
-        const timeline = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-          trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 1, invalidateOnRefresh: true
-        } });
-        [.85, .1, .8].forEach((fraction, index) => {
-          timeline.to(scissors, { x: x(fraction), y: y([.38, .24, .62][index]), rotation: [25, -25, 20][index], duration: 1 }, index);
-          timeline.to(clipper, { x: x(1 - fraction), y: y([.65, .5, .3][index]), rotation: [-18, 20, -15][index], duration: 1 }, index);
+        // One scroll-controlled orbit; opposite phases keep the objects circling each other.
+        const progress = { value: 0 };
+        const setters = [scissors, clipper].map(element => ({
+          x: gsap.quickSetter(element, 'x', 'px'),
+          y: gsap.quickSetter(element, 'y', 'px'),
+          rotation: gsap.quickSetter(element, 'rotation', 'deg')
+        }));
+        const render = () => {
+          const t = progress.value;
+          const width = window.innerWidth;
+          const height = window.innerHeight;
+          const radius = mobile ? Math.min(38, width * .1) : Math.min(105, width * .1);
+          const size = Math.max(scissors.offsetWidth, scissors.offsetHeight, clipper.offsetWidth, clipper.offsetHeight);
+          const margin = size * .72 + radius + 8;
+          const segment = Math.min(2, Math.floor(t * 3));
+          const local = t * 3 - segment;
+          const stops = [.2, .8, .2, .8];
+          const desired = width * (stops[segment] + (stops[segment + 1] - stops[segment]) * local);
+          const centerX = Math.max(Math.min(margin, width / 2), Math.min(width - Math.min(margin, width / 2), desired));
+          const centerY = height * (.34 + .2 * t);
+          [scissors, clipper].forEach((element, index) => {
+            const angle = t * Math.PI * 6 + index * Math.PI;
+            setters[index].x(centerX + Math.cos(angle) * radius - element.offsetWidth / 2);
+            setters[index].y(centerY + Math.sin(angle) * radius * .7 - element.offsetHeight / 2);
+            setters[index].rotation(t * 360 * (index ? -1 : 1) + (index ? 15 : -15));
+          });
+        };
+        gsap.to(progress, { value: 1, duration: 1, ease: 'none', onUpdate: render,
+          scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom',
+            scrub: 1, invalidateOnRefresh: true, onRefresh: render }
         });
-        // Every cut and blade vibration belongs to the same scrubbed timeline: no idle loop.
-        const cuts = mobile ? 12 : 24;
-        for (let i = 0; i < cuts; i++) {
-          const start = i * 3 / cuts;
-          const duration = 3 / cuts / 2;
-          timeline.to('#scissors-top-blade', { rotation: -18, duration, repeat: 1, yoyo: true }, start);
-          timeline.to('#scissors-bottom-blade', { rotation: 18, duration, repeat: 1, yoyo: true }, start);
-          timeline.to('#clipper-blade', { x: 2, duration: duration / 3, repeat: 5, yoyo: true }, start);
-          timeline.to('.clipper-cut-lines', { x: 4, y: -3, duration, repeat: 1, yoyo: true }, start);
-        }
+        render();
         // Refresh when real screenshots and fonts finish changing the document height.
         const refresh = () => ScrollTrigger.refresh();
         window.addEventListener('load', refresh);
@@ -65,15 +74,7 @@ export default function BarberBackdrop({ paused, reduced }) {
   }, [paused, reduced]);
 
   return <div ref={root} className="barber-backdrop fixed inset-0 pointer-events-none overflow-x-hidden z-0" aria-hidden="true">
-    <svg className="barber-scissors" viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" focusable="false">
-      <g id="scissors-top-blade"><ellipse cx="46" cy="137" rx="18" ry="23" transform="rotate(35 46 137)" /><path d="M59 120 100 100 174 49Q157 83 105 105L65 140" /></g>
-      <g id="scissors-bottom-blade"><ellipse cx="46" cy="63" rx="18" ry="23" transform="rotate(-35 46 63)" /><path d="M59 80 100 100 174 151Q157 117 105 95L65 60M28 49 18 39" /></g>
-      <circle cx="100" cy="100" r="6" /><path d="m97 103 6-6" />
-    </svg>
-    <svg className="barber-clipper" viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" focusable="false">
-      <path d="M67 58H133L142 88 128 166Q125 178 100 178T72 166L58 88Z" /><path d="M78 73H122L127 93 117 151H83L73 93ZM91 160H109M100 178V190M134 83 149 77 153 90" />
-      <g id="clipper-blade"><path d="M61 57V34H139V57ZM64 43H136M69 34V24M78 34V24M87 34V24M96 34V24M105 34V24M114 34V24M123 34V24M132 34V24" /></g>
-      <g className="clipper-cut-lines"><path d="m46 32-8-5m11 20-12 1m118-16 8-5m-11 20 12 1" /></g>
-    </svg>
+    <img className="barber-scissors" src="/media/barber-scissors.webp" alt="" decoding="async" />
+    <img className="barber-clipper" src="/media/barber-clipper.webp" alt="" decoding="async" />
   </div>;
 }
