@@ -56,3 +56,38 @@
   .operation-grid article { padding: 25px; }
   .operation-grid p { font-size: 16px; }
 }
+
+/* Stable canvases fit all captures without distortion or layout shifts. */
+.tour-panel { min-height: 537px; }
+.tour-image-scroll { height: 440px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.tour-image-scroll img, .tour-phone .tour-image-scroll img { width: 100%; height: 100%; max-width: 100%; object-fit: contain; }
+.tour-image-caption button { display: flex; align-items: center; gap: 7px; color: #b7d5ff; font-size: 12px; letter-spacing: 0; padding: 8px 0; border: 0; background: transparent; cursor: pointer; }
+.screen-gallery { position: fixed; inset: 0; margin: auto; padding: 0; width: min(1320px, 96vw); max-width: 96vw; height: min(920px, 94dvh); max-height: 94dvh; border: 1px solid #334155; border-radius: 18px; background: #0c121e; color: #edf4ff; box-shadow: 0 30px 100px #0009; overflow: auto; }
+.screen-gallery::backdrop { background: #020617df; backdrop-filter: blur(7px); }
+.gallery-layout { padding: 22px; display: flex; flex-direction: column; height: 100%; min-height: 360px; box-sizing: border-box; gap: 14px; }
+.gallery-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; }
+.gallery-kicker { font-size: 10px; letter-spacing: 2px; color: #75aaff; }
+.gallery-header h2 { font-family: inherit; font-size: 22px; margin: 4px 0 0; line-height: 1.3; }
+.gallery-close, .gallery-navigation button, .gallery-options button { background: #152135; color: #dae8fa; border: 1px solid #334155; border-radius: 8px; padding: 10px 14px; min-height: 44px; font: inherit; font-size: 14px; cursor: pointer; }
+.gallery-close { display: flex; align-items: center; gap: 8px; }
+.gallery-options { display: flex; gap: 8px; overflow-x: auto; flex-shrink: 0; padding: 2px; }
+.gallery-options button { flex-shrink: 0; }
+.gallery-options button[aria-pressed=true] { background: #246de0; border-color: #75aaff; color: white; }
+.screen-gallery button:focus-visible, .tour-image-caption button:focus-visible { outline: 2px solid #75aaff; outline-offset: 3px; }
+.gallery-figure { margin: 0; flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
+.gallery-image-frame { flex: 1; min-height: 0; background: #060a10; border: 1px solid #263247; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.gallery-image-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.gallery-figure figcaption { display: flex; justify-content: space-between; font-size: 14px; color: #b7c8df; flex-shrink: 0; }
+.gallery-navigation { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-shrink: 0; }
+.gallery-keyboard-hint { font-size: 12px; color: #8da0bb; }
+@media (max-width: 800px) { .tour-copy { min-height: 365px; } }
+@media (max-width: 600px) {
+  .tour-image-scroll { height: 390px; }
+  .tour-image-scroll img, .tour-phone .tour-image-scroll img { width: 100%; height: 100%; max-width: 100%; object-fit: contain; }
+  .tour-copy { min-height: 415px; }
+  .gallery-layout { padding: 14px; gap: 12px; }
+  .gallery-header h2 { font-size: 19px; }
+  .gallery-keyboard-hint { display: none; }
+  .gallery-close span { display: none; }
+  .gallery-options button { font-size: 13px; padding: 9px 12px; }
+}
