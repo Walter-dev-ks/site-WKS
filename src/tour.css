@@ -1,0 +1,58 @@
+.product-tour { background: #0a0e15; padding: 88px 0; border-top: 1px solid #ffffff12; }
+.tour-heading { display: flex; justify-content: space-between; align-items: end; gap: 48px; margin-bottom: 34px; }
+.tour-heading h2 { font-size: clamp(36px, 4.2vw, 56px); }
+.tour-heading > p { color: #aab6c8; max-width: 285px; font-size: 16px; }
+.tour-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.tour-tabs button { display: flex; align-items: center; gap: 10px; padding: 14px 18px; min-height: 48px; background: #ffffff04; border: 1px solid #ffffff16; border-radius: 7px; color: #b6c0cf; font-size: 13px; transition: background .2s, border-color .2s; }
+.tour-tabs button > span { color: #7b91af; font-size: 10px; }
+.tour-tabs button[aria-selected=true] { background: #3384ff1c; border-color: #3384ff99; color: white; }
+.tour-tabs button[aria-selected=true] > span { color: #70aaff; }
+.tour-panel { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(240px, 1fr); gap: 36px; align-items: center; border: 1px solid #ffffff14; border-radius: 18px; padding: 24px; background: linear-gradient(135deg, #131c2b, #0d1119); }
+.tour-capture { min-width: 0; animation: wks-view-enter .4s ease both; }
+.tour-image-scroll { overflow: auto; background: #090a0c; border: 1px solid #ffffff16; border-radius: 9px; scrollbar-width: thin; scrollbar-color: #3384ff66 #111827; }
+.tour-image-scroll img { width: 100%; height: auto; display: block; }
+.tour-phone .tour-image-scroll { background: radial-gradient(ellipse, #16366355, #080b11 70%); }
+.tour-phone .tour-image-scroll img { width: auto; height: 440px; margin: auto; }
+.tour-image-caption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; font-size: 9px; letter-spacing: .8px; color: #8094b0; }
+.tour-image-caption a { display: flex; align-items: center; gap: 7px; color: #b7d5ff; font-size: 12px; letter-spacing: 0; padding: 8px 0; }
+.tour-scroll-hint { display: none; }
+.tour-number { display: block; color: #75aaff; font-size: 11px; text-transform: uppercase; letter-spacing: 1.3px; margin-bottom: 18px; }
+.tour-copy h3 { font-size: 27px; line-height: 1.2; letter-spacing: -.7px; font-weight: 600; margin-bottom: 18px; }
+.tour-copy > p { color: #b0bac9; font-size: 14px; line-height: 1.8; }
+.tour-copy ul { list-style: none; padding: 0; margin: 24px 0; display: grid; gap: 15px; }
+.tour-copy li { display: flex; align-items: start; gap: 10px; font-size: 13px; line-height: 1.6; color: #d2dbea; }
+.tour-copy li svg { color: #68a4ff; flex-shrink: 0; margin-top: 3px; }
+.tour-copy .text-link { font-size: 13px; }
+.tour-copy .text-link > span { background: #3384ff; }
+.tour-brand-note { display: flex; gap: 12px; font-size: 12px; color: #95a5bd; line-height: 1.8; margin-top: 20px; max-width: 880px; }
+.tour-brand-note > svg { flex-shrink: 0; margin-top: 4px; color: #75aaff; }
+.tour-brand-note strong { color: #cfdaeb; font-weight: 550; }
+.operation-resources { background: #f4f3ef; color: #191b1c; padding: 0 0 88px; }
+.operation-resources .section-heading > p { color: #646a74; max-width: 280px; font-size: 16px; }
+.operation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 34px; }
+.operation-grid article { background: #fff; border: 1px solid #dedfe3; padding: 28px; border-radius: 12px; }
+.operation-grid article > svg { color: #2774e7; margin-bottom: 20px; }
+.operation-grid h3 { font-size: 17px; font-weight: 650; line-height: 1.5; }
+.operation-grid p { margin-top: 10px; font-size: 14px; color: #646a74; line-height: 1.85; }
+@media(max-width: 1000px) { .tour-panel { grid-template-columns: minmax(0, 1.3fr) minmax(220px, 1fr); gap: 24px; } .tour-copy h3 { font-size: 24px; } }
+@media(max-width: 800px) { .tour-heading { align-items: start; flex-direction: column; gap: 20px; } .tour-heading > p { max-width: 500px; } .tour-panel { grid-template-columns: 1fr; } .tour-copy { padding: 6px; } .tour-copy h3 { font-size: 28px; } .operation-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 600px) {
+  .product-tour { padding: 56px 0; }
+  .tour-heading h2 { font-size: 40px; }
+  .tour-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .tour-tabs button { padding: 12px 8px; justify-content: center; font-size: 11px; gap: 5px; }
+  .tour-tabs button > span { font-size: 9px; }
+  .tour-panel { padding: 14px; gap: 24px; border-radius: 13px; }
+  .tour-image-scroll img { width: 740px; max-width: none; }
+  .tour-phone .tour-image-scroll img { height: 390px; width: auto; max-width: 100%; }
+  .tour-image-caption { font-size: 8px; gap: 5px; }
+  .tour-scroll-hint { display: block; color: #95a5bd; font-size: 12px; margin-top: 8px; }
+  .tour-copy h3 { font-size: 26px; }
+  .tour-copy > p, .tour-copy li { font-size: 15px; }
+  .tour-brand-note { font-size: 13px; }
+  .operation-resources { padding-bottom: 56px; }
+  .operation-resources h2 { font-size: 42px; }
+  .operation-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 26px; }
+  .operation-grid article { padding: 25px; }
+  .operation-grid p { font-size: 16px; }
+}
