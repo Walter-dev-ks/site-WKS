@@ -91,3 +91,15 @@
   .gallery-close span { display: none; }
   .gallery-options button { font-size: 13px; padding: 9px 12px; }
 }
+
+.zoom-viewer { display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 0; }
+.zoom-toolbar { display: flex; align-items: center; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+.zoom-toolbar button { min-height: 44px; min-width: 44px; padding: 8px 12px; border: 1px solid #334155; border-radius: 7px; color: #e2edff; background: #152135; font-size: 15px; cursor: pointer; }
+.zoom-toolbar button:disabled { opacity: .4; cursor: default; }
+.zoom-toolbar output { min-width: 46px; text-align: center; color: #c2d3eb; font-size: 13px; font-variant-numeric: tabular-nums; }
+.zoom-toolbar > span { color: #8da0bb; font-size: 12px; margin-left: 6px; }
+.zoom-surface { touch-action: none; user-select: none; cursor: grab; outline-offset: -3px; }
+.zoom-surface[data-dragging=true] { cursor: grabbing; }
+.zoom-surface img { pointer-events: none; user-select: none; transform-origin: center; will-change: transform; flex-shrink: 0; }
+.zoom-surface:focus-visible { outline: 2px solid #75aaff; }
+@media (max-width: 600px) { .zoom-toolbar { gap: 6px; } .zoom-toolbar > span { display: none; } }
