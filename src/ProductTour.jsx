@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Icon } from './ui';
 
 const screens = [
@@ -12,6 +13,22 @@ const screens = [
 export default function ProductTour() {
   const [selected, setSelected] = useState(0);
   const screen = screens[selected];
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const dialog = useRef(null);
+  const opener = useRef(null);
+  const changeScreen = direction => setSelected(index => (index + direction + screens.length) % screens.length);
+  useEffect(() => {
+    if (!galleryOpen) return;
+    const modal = dialog.current;
+    const overflow = document.body.style.overflow;
+    modal.showModal();
+    document.body.style.overflow = 'hidden';
+    return () => {
+      modal.close();
+      document.body.style.overflow = overflow;
+      opener.current?.focus();
+    };
+  }, [galleryOpen]);
   function navigate(event) {
     const next = event.key === 'ArrowRight' ? (selected + 1) % screens.length : event.key === 'ArrowLeft' ? (selected + screens.length - 1) % screens.length : event.key === 'Home' ? 0 : event.key === 'End' ? screens.length - 1 : null;
     if (next === null) return;
@@ -23,11 +40,39 @@ export default function ProductTour() {
     <div className="tour-heading"><div><span className="kicker"><i />POR DENTRO DA PLATAFORMA</span><h2 id="tour-title">DO PRIMEIRO HORÁRIO.<br />AO ÚLTIMO NÚMERO.</h2></div><p>Explore telas reais do sistema, da experiência do cliente à gestão da barbearia.</p></div>
     <div className="tour-tabs" role="tablist" aria-label="Telas reais do sistema">{screens.map((item, index) => <button type="button" key={item.id} role="tab" id={`tour-tab-${item.id}`} aria-selected={selected === index} aria-controls="tour-panel" tabIndex={selected === index ? 0 : -1} onKeyDown={navigate} onClick={() => setSelected(index)}><span>{item.number}</span>{item.label}</button>)}</div>
     <div className={`tour-panel ${screen.id === 'agendamento' ? 'tour-phone' : ''}`} role="tabpanel" id="tour-panel" aria-labelledby={`tour-tab-${screen.id}`} tabIndex={0}>
-      <div className="tour-capture" key={screen.id}><div className="tour-image-scroll" tabIndex={0} role="region" aria-label={`Captura da tela: ${screen.label}`}><img src={`/media/product/${screen.id}.png`} alt={screen.alt} width={screen.width} height={screen.height} loading="lazy" decoding="async" /></div><div className="tour-image-caption"><span>CAPTURA REAL DO SISTEMA</span><a href={`/media/product/${screen.id}.png`} target="_blank" rel="noopener noreferrer">Ampliar tela <Icon size={14} /></a></div>{screen.id !== 'agendamento' && <p className="tour-scroll-hint">Deslize a imagem para explorar a tela.</p>}</div>
+      <div className="tour-capture" key={screen.id}><div className="tour-image-scroll" tabIndex={0} role="region" aria-label={`Captura da tela: ${screen.label}`}><img src={`/media/product/${screen.id}.png`} alt={screen.alt} width={screen.width} height={screen.height} loading="lazy" decoding="async" /></div><div className="tour-image-caption"><span>CAPTURA REAL DO SISTEMA</span><button type="button" ref={opener} onClick={() => setGalleryOpen(true)} aria-haspopup="dialog">Ampliar tela <Icon size={14} /></button></div></div>
       <div className="tour-copy"><span className="tour-number">{screen.number} / {screen.label}</span><h3>{screen.title}</h3><p>{screen.description}</p><ul>{screen.points.map(point => <li key={point}><Icon name="check" size={16} />{point}</li>)}</ul><a className="text-link" href="#demonstracao">Ver em uma demonstração <span><Icon size={17} /></span></a></div>
     </div>
     <p className="tour-brand-note"><Icon name="spark" size={18} /><span><strong>A marca nas telas é um exemplo de implantação.</strong> Sua barbearia recebe o próprio nome, a própria logo e as próprias cores, mantendo a base de funcionalidades e o layout. Datas, valores e regras exibidos pertencem ao exemplo.</span></p>
-  </div></section>;
+  </div>
+    {createPortal(<dialog ref={dialog} className="screen-gallery" aria-labelledby="gallery-title"
+      onCancel={event => { event.preventDefault(); setGalleryOpen(false); }}
+      onClick={event => { if (event.target === event.currentTarget) setGalleryOpen(false); }}
+      onKeyDown={event => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+          event.preventDefault();
+          changeScreen(event.key === 'ArrowRight' ? 1 : -1);
+        }
+      }}>
+      <div className="gallery-layout">
+        <header className="gallery-header"><div><span className="gallery-kicker">POR DENTRO DA WKS</span><h2 id="gallery-title">Telas do sistema</h2></div>
+          <button type="button" className="gallery-close" autoFocus onClick={() => setGalleryOpen(false)} aria-label="Fechar galeria"><Icon name="close" size={22} /><span>Fechar</span></button>
+        </header>
+        <div className="gallery-options" role="group" aria-label="Selecionar tela">{screens.map((item, index) =>
+          <button type="button" key={item.id} aria-pressed={selected === index} onClick={() => setSelected(index)}>{item.label}</button>
+        )}</div>
+        <figure className="gallery-figure">
+          <div className="gallery-image-frame"><img src={`/media/product/${screen.id}.png`} alt={screen.alt} width={screen.width} height={screen.height} decoding="async" /></div>
+          <figcaption aria-live="polite">{screen.label} <span>{selected + 1} / {screens.length}</span></figcaption>
+        </figure>
+        <nav className="gallery-navigation" aria-label="Navegar entre capturas">
+          <button type="button" onClick={() => changeScreen(-1)}><span aria-hidden="true">←</span> Anterior</button>
+          <span className="gallery-keyboard-hint">Use as setas do teclado para navegar</span>
+          <button type="button" onClick={() => changeScreen(1)}>Próxima <span aria-hidden="true">→</span></button>
+        </nav>
+      </div>
+    </dialog>, document.body)}
+  </section>;
 }
 
 export function OperationResources() {
