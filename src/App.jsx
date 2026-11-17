@@ -3,6 +3,7 @@ import { Icon, ProductPreview, faq } from './ui';
 import { sales, media } from './config';
 import { useMotion } from './motion';
 import ProductTour, { OperationResources } from './ProductTour';
+import BarberBackdrop from './BarberBackdrop';
 
 const themes = [{ name: 'Azul', color: '#3384ff' }, { name: 'Dourado', color: '#c59b51' }, { name: 'Verde', color: '#2aad85' }];
 const views = [{ id: 'agenda', label: 'Agenda da equipe' }, { id: 'clientes', label: 'Gestão de clientes' }, { id: 'financeiro', label: 'Visão financeira' }];
@@ -87,6 +88,7 @@ export default function App() {
     window.location.assign(`https://wa.me/${sales.whatsapp}?text=${encodeURIComponent(message)}`);
   }
   return <>
+    <BarberBackdrop paused={paused} reduced={reduced} />
     <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
     <header className="header"><div className="container header-inner"><Logo /><nav id="main-nav" className={menu ? 'nav open' : 'nav'} aria-label="Navegação principal">{[['#telas', 'O sistema'], ['#recursos', 'Recursos'], ['#sua-marca', 'Sua marca'], ['#duvidas', 'Dúvidas']].map(([href, label]) => <a href={href} key={href} onClick={() => setMenu(false)}>{label}</a>)}</nav><CTA className="nav-cta">Agendar demonstração</CTA><button className="menu-button" aria-label={menu ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menu} aria-controls="main-nav" onClick={() => setMenu(!menu)}><Icon name={menu ? 'close' : 'menu'} /></button></div></header>
     <main id="conteudo">
