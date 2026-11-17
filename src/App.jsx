@@ -76,7 +76,14 @@ export default function App() {
       return;
     }
     const data = new FormData(event.currentTarget);
-    const message = `Olá, WKS Systems! Quero uma demonstração do sistema.\nNome: ${data.get('name')}\nBarbearia: ${data.get('shop')}`;
+    const name = String(data.get('name') || '').trim();
+    const shopName = String(data.get('shop') || '').trim();
+    if (!name || !shopName) {
+      setError('Preencha seu nome e o nome da barbearia.');
+      return;
+    }
+    setError('');
+    const message = `Olá, me chamo ${name} e sou da barbearia ${shopName}, gostaria de mais informações sobre seu sistema de barbearia!`;
     window.location.assign(`https://wa.me/${sales.whatsapp}?text=${encodeURIComponent(message)}`);
   }
   return <>
