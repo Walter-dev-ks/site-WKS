@@ -1,0 +1,17 @@
+/* Utility equivalents keep this esbuild project independent of a Tailwind runtime. */
+.barber-backdrop { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.barber-backdrop svg { position: absolute; top: 0; left: 0; width: clamp(100px, 15vw, 210px); height: auto; color: #b8a780; opacity: .14; will-change: transform; }
+.barber-backdrop .barber-clipper { color: #8799b8; }
+/* Section surfaces remain underneath the vectors; their content stays above them. */
+#root { isolation: isolate; }
+main { position: relative; }
+main > section, main > div > section { position: relative; }
+main .container, .hero-controls, .illustration-note, .motion-toggle { position: relative; z-index: 10; }
+.barber-backdrop { z-index: 2; }
+.header, .mobile-sticky { z-index: 20; }
+footer { position: relative; z-index: 20; }
+@media (max-width: 767px) {
+  .barber-backdrop svg { width: 78px; opacity: .07; }
+}
+.motion-paused .barber-backdrop { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) { .barber-backdrop { display: none; } }
