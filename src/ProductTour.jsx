@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Icon } from './ui';
+import ZoomableScreen from './ZoomableScreen';
 
 const screens = [
   { id: 'agendamento', label: 'Cliente', number: '01', title: 'O próximo corte começa no celular.', description: 'Um fluxo de agendamento com a identidade da sua barbearia. O cliente informa seus dados e escolhe os serviços, o profissional e o horário disponível.', points: ['Agendamento pelo navegador do celular', 'Horários conforme a disponibilidade da equipe', 'Nome, logo e cores da sua barbearia'], alt: 'Tela real do agendamento online com identidade Murialan e início da conversa para informar o nome', width: 628, height: 906 },
@@ -62,7 +63,7 @@ export default function ProductTour() {
           <button type="button" key={item.id} aria-pressed={selected === index} onClick={() => setSelected(index)}>{item.label}</button>
         )}</div>
         <figure className="gallery-figure">
-          <div className="gallery-image-frame"><img src={`/media/product/${screen.id}.png`} alt={screen.alt} width={screen.width} height={screen.height} decoding="async" /></div>
+          <ZoomableScreen key={screen.id} screen={screen} />
           <figcaption aria-live="polite">{screen.label} <span>{selected + 1} / {screens.length}</span></figcaption>
         </figure>
         <nav className="gallery-navigation" aria-label="Navegar entre capturas">
